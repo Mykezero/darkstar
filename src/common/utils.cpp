@@ -22,8 +22,6 @@
 */
 
 #include "../common/utils.h"
-#include "../common/md52.h"
-#include "../common/showmsg.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,24 +31,6 @@
 #	include <intrin.h>
 #endif
 
-/************************************************************************
-*																		*
-*																		*
-*																		*
-************************************************************************/
-
-int32 checksum(unsigned char *buf,uint32 buflen, char checkhash[16])
-{
-	unsigned char hash[16];
-
-	md5((unsigned char *)buf, hash, buflen);
-
-	if( memcmp(hash,checkhash,16) == 0)
-	{
-		return 0;
-	}
-	return -1;
-}
 
 /************************************************************************
 *																		*
@@ -186,7 +166,6 @@ int32 hasBit(uint16 value, uint8* BitArray, uint32 size)
 {
 	if (value >= size * 8)
 	{
-		ShowError(CL_RED"hasBit: value (%u) is out of range\n" CL_RESET, value);
 		return 0;
 	}
 	return (int32)(BitArray[value >> 3] & (1 << (value % 8)));
@@ -275,10 +254,7 @@ uint32 packBitsBE(uint8* target, uint64 value, int32 byteOffset, int32 bitOffset
 		*dataPointer &= bitmask;
 		*dataPointer |= value;
 	}
-	else
-	{
-		ShowError("Pack Bits Error: packBitsBE(...) not implemented for targetsizes above 64 bits.\n Targetsize: %d\n",(lengthInBit+bitOffset));
-	}
+
 	return ((byteOffset << 3) + bitOffset + lengthInBit);
 }
 
@@ -326,7 +302,6 @@ uint64 unpackBitsBE(uint8* target, int32 byteOffset, int32 bitOffset, uint8 leng
 	}
 	else
 	{
-		ShowError("Unpack Bits Error: unpackBits(...) not implemented for targetsizes above 64 bits.\n Targetsize: %d\n",(lengthInBit+bitOffset));
 		return 0;
 	}
 	return retVal;
@@ -353,7 +328,6 @@ uint32 packBitsLE(uint8* target, uint64 value, int32 byteOffset, int32 bitOffset
 		bytesNeeded = 8;
 	else
 	{
-		ShowError("Pack Bits Error: packBitsLE(...) not implemented for targetsizes above 64 bits.\n Targetsize: %d\n",(lengthInBit+bitOffset));
 		return 0;
 	}
 
@@ -398,7 +372,6 @@ uint64 unpackBitsLE(uint8* target, int32 byteOffset, int32 bitOffset, uint8 leng
 		bytesNeeded = 8;
 	else
 	{
-		ShowError("Unpack Bits Error: packBitsLE(...) not implemented for targetsizes above 64 bits.\n Targetsize: %d\n",(lengthInBit+bitOffset));
 		return 0;
 	}
 

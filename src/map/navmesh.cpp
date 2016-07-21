@@ -24,7 +24,6 @@
 #include "navmesh.h"
 #include "../common/detour/DetourNavMeshQuery.h"
 #include <float.h>
-#include <string.h>
 #include <iostream>
 #include <fstream>
 #include "../common/utils.h"
@@ -127,8 +126,6 @@ bool CNavMesh::load(const std::string& filename)
     dtStatus status = m_navMesh->init(&header.params);
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::load Could not initialize detour for (%s)", filename);
-        outputError(status);
         return false;
     }
 
@@ -154,41 +151,10 @@ bool CNavMesh::load(const std::string& filename)
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::load Error loading navmeshquery (%s)\n", filename.c_str());
-        outputError(status);
         return false;
     }
 
     return true;
-}
-
-void CNavMesh::outputError(uint32 status)
-{
-
-    if (status & DT_WRONG_MAGIC)
-    {
-        ShowNavError("Detour wrong magic\n");
-    }
-    else if (status & DT_WRONG_VERSION)
-    {
-        ShowNavError("Detour wrong version\n");
-    }
-    else if (status & DT_OUT_OF_MEMORY)
-    {
-        ShowNavError("Detour out of memory\n");
-    }
-    else if (status & DT_INVALID_PARAM)
-    {
-        ShowNavError("Detour invalid param\n");
-    }
-    else if (status & DT_OUT_OF_NODES)
-    {
-        ShowNavError("Detour out of nodes\n");
-    }
-    else if (status & DT_PARTIAL_RESULT)
-    {
-        ShowNavError("Detour partial result\n");
-    }
 }
 
 void CNavMesh::unload()
@@ -228,8 +194,6 @@ std::vector<position_t> CNavMesh::findPath(const position_t& start, const positi
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::findPath start point invalid (%f, %f, %f) (%u)\n", spos[0], spos[1], spos[2], m_zoneID);
-        outputError(status);
         return ret;
     }
 
@@ -237,14 +201,11 @@ std::vector<position_t> CNavMesh::findPath(const position_t& start, const positi
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::findPath end point invalid (%f, %f, %f) (%u)\n", epos[0], epos[1], epos[2], m_zoneID);
-        outputError(status);
         return ret;
     }
 
     if (!m_navMesh->isValidPolyRef(startRef) || !m_navMesh->isValidPolyRef(endRef))
     {
-        ShowNavError("CNavMesh::findPath Couldn't find path (%f, %f, %f)->(%f, %f, %f) (%u) \n", start.x, start.y, start.z, end.x, end.y, end.z, m_zoneID);
         return ret;
     }
 
@@ -261,8 +222,6 @@ std::vector<position_t> CNavMesh::findPath(const position_t& start, const positi
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::findPath findPath error (%u)\n", m_zoneID);
-        outputError(status);
         return ret;
     }
 
@@ -274,8 +233,6 @@ std::vector<position_t> CNavMesh::findPath(const position_t& start, const positi
 
         if (dtStatusFailed(status))
         {
-            ShowNavError("CNavMesh::findPath findStraightPath error (%u)\n", m_zoneID);
-            outputError(status);
             return ret;
         }
 
@@ -322,14 +279,11 @@ std::pair<int16, position_t> CNavMesh::findRandomPosition(const position_t& star
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::findRandomPath start point invalid (%f, %f, %f) (%u)\n", spos[0], spos[1], spos[2], m_zoneID);
-        outputError(status);
         return std::make_pair(ERROR_NEARESTPOLY, position_t{});
     }
 
     if (!m_navMesh->isValidPolyRef(startRef))
     {
-        ShowNavError("CNavMesh::findRandomPath startRef is invalid (%f, %f, %f) (%u)\n", start.x, start.y, start.z, m_zoneID);
         return std::make_pair(ERROR_NEARESTPOLY, position_t{});
     }
 
@@ -337,8 +291,6 @@ std::pair<int16, position_t> CNavMesh::findRandomPosition(const position_t& star
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::findRandomPath Error (%u)\n", m_zoneID);
-        outputError(status);
         return std::make_pair(ERROR_NEARESTPOLY, position_t{});
     }
 
@@ -410,14 +362,11 @@ bool CNavMesh::raycast(const position_t& start, const position_t& end)
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::raycastPoint start point invalid (%f, %f, %f) (%u)\n", spos[0], spos[1], spos[2], m_zoneID);
-        outputError(status);
         return true;
     }
 
     if (!m_navMesh->isValidPolyRef(startRef))
     {
-        ShowNavError("CNavMesh::raycastPoint startRef is invalid (%f, %f, %f) (%u)\n", start.x, start.y, start.z, m_zoneID);
         return true;
     }
 
@@ -425,8 +374,6 @@ bool CNavMesh::raycast(const position_t& start, const position_t& end)
 
     if (dtStatusFailed(status))
     {
-        ShowNavError("CNavMesh::raycastPoint raycast failed (%f, %f, %f)->(%f, %f, %f) (%u)\n", spos[0], spos[1], spos[2], epos[0], epos[1], epos[2], m_zoneID);
-        outputError(status);
         return true;
     }
 

@@ -25,7 +25,6 @@
 #define _UTILS_H_
 #define _USE_MATH_DEFINES
 
-#include <math.h>
 #include "../common/cbasetypes.h"
 #include "../common/mmo.h"
 

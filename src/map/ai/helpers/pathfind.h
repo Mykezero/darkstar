@@ -27,7 +27,6 @@ The PathFind class provides an interface for getting an entity to a destination.
 #ifndef _PATHFIND_H
 #define _PATHFIND_H
 
-#include "../../../common/showmsg.h"
 #include "../../../common/mmo.h"
 
 #include <vector>

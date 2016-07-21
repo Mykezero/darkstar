@@ -29,8 +29,6 @@ The NavMesh class will load and find paths given a start point and end point.
 
 #include "../common/detour/DetourNavMesh.h"
 #include "../common/detour/DetourNavMeshQuery.h"
-
-#include "../common/showmsg.h"
 #include "../common/mmo.h"
 
 #include <vector>
@@ -85,8 +83,6 @@ public:
     bool validPosition(const position_t& position);
 
 private:
-    void outputError(uint32 status);
-
     uint16 m_zoneID;
     dtRaycastHit m_hit;
     dtPolyRef m_hitPath[20];

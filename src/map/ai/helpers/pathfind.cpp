@@ -22,10 +22,9 @@ This file is part of DarkStar-server source code.
 */
 
 #include "pathfind.h"
-#include "../../zone.h"
-#include "../../entities/baseentity.h"
-#include "../../entities/mobentity.h"
 #include "../../../common/utils.h"
+#include "../../../common/dsprand.h"
+#include <math.h>
 
 CPathFind::CPathFind(CNavMesh* navMesh, position_t* position)
 {
@@ -63,15 +62,7 @@ bool CPathFind::RoamAround(const position_t& point, float maxRadius, uint8 maxTu
     }
     else
     {
-        // no point worm roaming cause it'll move one inch
-        if (m_roamFlags & ROAMFLAG_WORM)
-        {
-            Clear();
-            return false;
-        }
-
         m_points.push_back({0, point.x - 1 + rand() % 2, point.y, point.z - 1 + rand() % 2, 0});
-
     }
 
     return true;
@@ -335,7 +326,6 @@ bool CPathFind::FindPath(const position_t& start, const position_t& end)
 
     if (m_points.size() <= 0)
     {
-        ShowNavError("CPathFind::FindPath Entity (%d) could not find path\n", 0);
         return false;
     }
 
@@ -464,7 +454,6 @@ void CPathFind::AddPoints(std::vector<position_t>&& points, bool reverse)
 {
     if (points.size() > MAX_PATH_POINTS)
     {
-        ShowWarning("CPathFind::AddPoints Given too many points (%d). Limiting to max (%d)\n", points.size(), MAX_PATH_POINTS);
         points.resize(MAX_PATH_POINTS);
     }
 
