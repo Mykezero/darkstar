@@ -2,17 +2,24 @@
 
 int main(int argc, char* argv[])
 {
-	CNavMesh navMesh{ 1 };
-	navMesh.load("C:\\Users\\Mike\\Documents\\GitHub\\darkstar\\navmeshes\\West_Ronfaure.nav");
-	position_t startPosition;
+	CNavMesh navMesh { 107 };
+	navMesh.load("C:\\Users\\Mike\\Documents\\GitHub\\darkstar\\navmeshes\\South_Gustaberg.nav");
+	
+	position_t start;
+	start.rotation = 1.33492184;
+	start.x = 540.5262;
+	start.y = 3.02880979;
+	start.z = -461.056641;
 
+	position_t end;
+	end.rotation = 1.65796828;
+	end.x = 540.625244;
+	end.y = 2.734441;
+	end.z = -445.004822;
 
-	CPathFind pathFind = CPathFind(&navMesh, &startPosition);
+	auto route = navMesh.findPath(start, end);
 
-	position_t position_t;
-	position_t.x = 1;
-	position_t.y = 1;
-	position_t.z = 1;
-	bool result = pathFind.PathTo(position_t);
+	Assert(!route.empty());
 
+	navMesh.unload();
 }
