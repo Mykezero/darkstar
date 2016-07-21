@@ -118,5 +118,8 @@
     <ClCompile Include="..\..\src\map\ai\helpers\pathfind.cpp">
       <Filter>Source Files\ai\helpers</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
