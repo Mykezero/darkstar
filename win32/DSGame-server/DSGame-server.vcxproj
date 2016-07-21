@@ -191,13 +191,11 @@
     <ClInclude Include="..\..\src\common\detour\DetourNode.h" />
     <ClInclude Include="..\..\src\common\detour\DetourStatus.h" />
     <ClInclude Include="..\..\src\common\dsprand.h" />
-    <ClInclude Include="..\..\src\common\malloc.h" />
     <ClInclude Include="..\..\src\common\marshal\string.h" />
     <ClInclude Include="..\..\src\common\mmo.h" />
     <ClInclude Include="..\..\src\common\recast\Recast.h" />
     <ClInclude Include="..\..\src\common\recast\RecastAlloc.h" />
     <ClInclude Include="..\..\src\common\recast\RecastAssert.h" />
-    <ClInclude Include="..\..\src\common\strlib.h" />
     <ClInclude Include="..\..\src\common\utils.h" />
     <ClInclude Include="..\..\src\map\ai\helpers\pathfind.h" />
     <ClInclude Include="..\..\src\map\navmesh.h" />
@@ -209,8 +207,6 @@
     <ClCompile Include="..\..\src\common\detour\DetourNavMeshBuilder.cpp" />
     <ClCompile Include="..\..\src\common\detour\DetourNavMeshQuery.cpp" />
     <ClCompile Include="..\..\src\common\detour\DetourNode.cpp" />
-    <ClCompile Include="..\..\src\common\malloc.cpp" />
-    <ClCompile Include="..\..\src\common\strlib.cpp" />
     <ClCompile Include="..\..\src\common\utils.cpp" />
     <ClCompile Include="..\..\src\map\ai\helpers\pathfind.cpp" />
     <ClCompile Include="..\..\src\map\navmesh.cpp" />
