@@ -18,8 +18,10 @@ int main(int argc, char* argv[])
 	end.z = -445.004822;
 
 	auto route = navMesh.findPath(start, end);
-
 	Assert(!route.empty());
+
+	auto hit = navMesh.raycast(start, end);	
+	Assert(hit);
 
 	navMesh.unload();
 }
