@@ -31,8 +31,7 @@ The PathFind class provides an interface for getting an entity to a destination.
 #include "../../../common/mmo.h"
 
 #include <vector>
-
-class CBaseEntity;
+#include "../../navmesh.h"
 
 // no path can be longer than this
 #define MAX_PATH_POINTS 50
@@ -51,8 +50,8 @@ enum PATHFLAG {
 class CPathFind
 {
   public:
-    CPathFind(CBaseEntity* PTarget);
-    ~CPathFind();
+	CPathFind(CNavMesh * navMesh, position_t * position);
+	~CPathFind();
 
     // move to a random point around given point
     bool RoamAround(const position_t& point, float maxRadius, uint8 maxTurns, uint8 roamFlags = 0);
@@ -88,7 +87,7 @@ class CPathFind
     void StopWithin(float within);
 
     // tells entity to take one step towards position
-    void StepTo(const position_t& pos, bool run = false);
+    void StepTo(const position_t& pos, uint8 parameterSpeed, bool run = false);
 
     // checks if mob is currently following a path
     bool IsFollowingPath();
@@ -132,7 +131,9 @@ class CPathFind
 
     void FinishedPath();
 
-    CBaseEntity* m_PTarget;
+	position_t* m_position;
+	CNavMesh* m_navMesh;
+
     std::vector<position_t> m_points;
     std::vector<position_t> m_turnPoints;
     position_t m_originalPoint;
