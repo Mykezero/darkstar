@@ -36,9 +36,6 @@
     <Filter Include="Header Files\ai\helpers">
       <UniqueIdentifier>{7c17288c-6809-4a52-a845-38ebebf68ccd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\common\marshal">
-      <UniqueIdentifier>{e12005cb-3c26-42a1-9752-8898f7492816}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\common\cbasetypes.h">
@@ -91,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\common\dsprand.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\common\marshal\string.h">
-      <Filter>Header Files\common\marshal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
